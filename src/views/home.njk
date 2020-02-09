@@ -1,0 +1,28 @@
+{% extends 'layout.njk' %}
+
+{% block conteudo %}
+    <div class="div-body">
+        <div class="destaque">
+            <div class="destaque-words">
+                <h1>As melhores receitas</h1>
+                <p>Aprenda a construir os melhores pratos com receitas
+                criadas por profissionais do mundo inteiro.</p>
+            </div>
+            <div class="destaque-image">
+                <img class="chef" src="/assets/chef.png" alt="Cozinheito">
+            </div>
+        </div>
+        <h2 class="mostAcess">Mais acessadas</h2>
+        <article class="receitas">
+            {% for receita in receitas %}
+                {% if receita.mostAcess %}
+                    <div>
+                        <img src="{{receita.id}}" alt="Burger">
+                        <h3>{{receita.titulo}}</h3>
+                        <p>{{receita.autor}}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </article>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'layout.njk' %}
+
+{% block conteudo %}
+    <div class="div-body">
+        <article class="receitas">
+            {% for receita in receitas %}
+                <div class="item" id="{{receitas.id}}">
+                    <img src="{{receita.id}}" alt="Burger">
+                    <h3>{{receita.titulo}}</h3>
+                    <p>{{receita.autor}}</p>
+                </div>
+            {% endfor %}
+        </article>
+    </div>
+    <div class="modal-overlay">
+        <div class="modal">
+            <img src="" alt="">
+            <h1></h1>
+            <p class="author"></p>
+            <p class="close-modal">Fechar modal</p>
+        </div>
+    </div>
+{% endblock %}
