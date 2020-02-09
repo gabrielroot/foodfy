@@ -1,9 +1,12 @@
 const PORT = 8000
 const express = require('express')
 const nunjucks = require('nunjucks')
+const cors = require('cors')
 const receitas = require('./data/receitas')
 
 const app = express()
+
+app.use(cors())
 app.use(express.static('./src/public')) //diretório para arquivos como css
 app.set('view engine', 'njk')
 nunjucks.configure('./src/views', {
@@ -29,6 +32,6 @@ app.get("/receitas/:index", function (req, res) {
         res.render('__404')
   })
 
-app.listen(PORT,()=>{
+app.listen(process.env.PORT || PORT,()=>{
     console.log('Running on port [',PORT,']!!')
 })
