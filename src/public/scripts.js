@@ -31,7 +31,7 @@ switch(pathName){
         })
         for(let i=0;i<items.length;i++){
             items[i].addEventListener('click', function(){
-                window.open(`/receitas/${i}`,'_blank')
+                window.open(`/receitas/${i}`,'_self')
             })
         }
         navReceitas.style.fontWeight = 'bold'
