@@ -1,7 +1,6 @@
 services:
   foodfy:
     image: ${IMAGE}
-    pull_policy: always
     restart: unless-stopped
     expose:
       - 80
