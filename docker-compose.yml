@@ -1,0 +1,9 @@
+services:
+  portfolio:
+    image: ${IMAGE}
+    pull_policy: always
+    restart: unless-stopped
+    expose:
+      - 80
+    deploy:
+      replicas: 1
