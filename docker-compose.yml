@@ -1,5 +1,5 @@
 services:
-  portfolio:
+  foodfy:
     image: ${IMAGE}
     pull_policy: always
     restart: unless-stopped
