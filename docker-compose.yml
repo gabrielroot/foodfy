@@ -4,5 +4,25 @@ services:
     restart: unless-stopped
     expose:
       - 8000
+    healthcheck:
+      test: ["CMD", "nc", "-zv", "127.0.0.1", "8000"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     deploy:
       replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+        failure_action: rollback
+        max_failure_ratio: 0.25
+        order: start-first
+      rollback_config:
+        parallelism: 3
+        delay: 5s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
