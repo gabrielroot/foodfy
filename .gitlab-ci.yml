@@ -1,5 +1,6 @@
 stages:
   - build-push
+  - notify-dokploy
 
 variables:
   IMAGE_NAME: $CI_REGISTRY_IMAGE
@@ -21,9 +22,9 @@ build-push:
     - docker push $IMAGE_NAME:latest
   only:
     - main
-    
+
 notify-dokploy:
-  stage: notify
+  stage: notify-dokploy
   image: alpine/curl
   script:
     - |
