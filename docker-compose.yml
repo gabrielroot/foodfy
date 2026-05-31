@@ -3,6 +3,6 @@ services:
     image: ${IMAGE}
     restart: unless-stopped
     expose:
-      - 80
+      - 8000
     deploy:
       replicas: 1
