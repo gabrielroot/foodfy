@@ -1,13 +1,11 @@
 stages:
-  - build
-  - push
+  - build-push
 
 variables:
   IMAGE_NAME: $CI_REGISTRY_IMAGE
-  IMAGE_TAG: $CI_COMMIT_REF_SLUG
 
-build:
-  stage: build
+build-push:
+  stage: build-push
   image: docker:27
   services:
     - docker:27-dind
@@ -16,25 +14,10 @@ build:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-    - docker build -t $IMAGE_NAME:latest .
-  only:
-    - main
-    - merge_requests
-
-push:
-  stage: push
-  image: docker:27
-  services:
-    - docker:27-dind
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  script:
-    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-    - docker build -t $IMAGE_NAME:latest .
-    - docker push $IMAGE_NAME:$IMAGE_TAG
+    - docker build
+        -t $IMAGE_NAME:$CI_COMMIT_SHORT_SHA
+        -t $IMAGE_NAME:latest .
+    - docker push $IMAGE_NAME:$CI_COMMIT_SHORT_SHA
     - docker push $IMAGE_NAME:latest
   only:
     - main
