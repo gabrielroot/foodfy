@@ -21,3 +21,16 @@ build-push:
     - docker push $IMAGE_NAME:latest
   only:
     - main
+    
+notify-dokploy:
+  stage: notify
+  image: alpine/curl
+  script:
+    - |
+      curl -X POST "$DOKPLOY_WEBHOOK_URL" \
+        -H "Content-Type: application/json" \
+        -H "X-GitHub-Event: push" \
+        -d "{\"ref\": \"refs/heads/$CI_COMMIT_REF_NAME\", \"repository\": {\"full_name\": \"$CI_PROJECT_PATH\"}}"
+  when: on_success
+  only:
+    - main
